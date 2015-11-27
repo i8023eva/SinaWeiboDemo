@@ -8,6 +8,9 @@
 
 #import "OAuthViewController.h"
 #import "AFNetworking.h"
+#import "RootController.h"
+#import "LaunchController.h"
+#import "MBProgressHUD+MJ.h"
 
 @interface OAuthViewController ()<UIWebViewDelegate>
 
@@ -66,6 +69,9 @@
         
         // 利用code换取一个accessToken
         [self accessTokenWithCode:code];
+        
+        //禁止加载回调地址
+        return NO;
     }
     
     return YES;
@@ -99,7 +105,61 @@
      uid                     string	当前授权用户的UID。
      */
     
+    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
     
+    // AFN的AFJSONResponseSerializer默认不接受text/plain这种类型     acceptableContentTypes
+    //"Request failed: unacceptable content-type: text/plain"
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"client_id"] = @"247667081";
+    params[@"client_secret"] = @"30cc102c3d03eadbf7bbb9882f1454c9";
+    params[@"grant_type"] = @"authorization_code";
+    params[@"redirect_uri"] = @"http://www.baidu.com";
+    params[@"code"] = code;
+    
+    // 3.发送请求
+    [mgr POST:@"https://api.weibo.com/oauth2/access_token" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [MBProgressHUD hideHUD];
+        
+        // 沙盒路径
+        NSString *doc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+        NSString *path = [doc stringByAppendingPathComponent:@"account.archive"];
+        
+        // 将返回的账号字典数据 --> 模型，存进沙盒
+        HWAccount *account = [HWAccount accountWithDict:responseObject];
+        // 自定义对象的存储必须用NSKeyedArchiver，不再有什么writeToFile方法
+        [NSKeyedArchiver archiveRootObject:account toFile:path];
+        
+        // 切换窗口的根控制器
+        NSString *key = @"CFBundleVersion";
+        // 上一次的使用版本（存储在沙盒中的版本号）
+        NSString *lastVersion = [[NSUserDefaults standardUserDefaults] objectForKey:key];
+        // 当前软件的版本号（从Info.plist中获得）
+        NSString *currentVersion = [NSBundle mainBundle].infoDictionary[key];
+        
+        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        if ([currentVersion isEqualToString:lastVersion]) { // 版本号相同：这次打开和上次打开的是同一个版本
+            window.rootViewController = [[RootController alloc] init];
+        } else { // 这次打开的版本和上一次不一样，显示新特性
+            window.rootViewController = [[LaunchController alloc] init];
+            
+            // 将当前的版本号存进沙盒
+            [[NSUserDefaults standardUserDefaults] setObject:currentVersion forKey:key];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [MBProgressHUD hideHUD];
+        NSLog(@"请求失败-%@", error);
+    }];
+
+    /**
+     *  {
+             "access_token" = "2.00Q3WT1E02WLlQ4ec27ca2d00bz254";
+             "expires_in" = 157679999;
+             "remind_in" = 157679999;
+             uid = 3967093948;
+     }
+     */
     
 }
 

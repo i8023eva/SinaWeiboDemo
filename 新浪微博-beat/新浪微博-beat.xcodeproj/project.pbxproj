@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		142DBD1D1BD3DD27006A2E37 /* EVASearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 142DBD1C1BD3DD27006A2E37 /* EVASearchBar.m */; };
-		142DBD201BD3FABF006A2E37 /* EVADropDownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 142DBD1F1BD3FABF006A2E37 /* EVADropDownMenu.m */; };
 		14AC31541BD399B60054C0C4 /* UIBarButtonItem+CustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14AC31531BD399B60054C0C4 /* UIBarButtonItem+CustomView.m */; };
 		14B69BC21BD283CA006678EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14B69BC11BD283CA006678EF /* Assets.xcassets */; };
 		14B69BD01BD283CA006678EF /* _____beatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B69BCF1BD283CA006678EF /* _____beatTests.m */; };
@@ -18,10 +16,15 @@
 		14B69C0C1BD2B284006678EF /* MessageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B69C0B1BD2B284006678EF /* MessageController.m */; };
 		14B69C0F1BD2B29B006678EF /* ProfileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B69C0E1BD2B29B006678EF /* ProfileController.m */; };
 		14B907921BD50F1200DCA2D4 /* HomeDropDownMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B907911BD50F1200DCA2D4 /* HomeDropDownMenuController.m */; };
-		14B907D41BD5490900DCA2D4 /* EVATabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B907D31BD5490900DCA2D4 /* EVATabBar.m */; };
 		14BB582B1C080A5C0001E46B /* OAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BB582A1C080A5C0001E46B /* OAuthViewController.m */; };
+		14BB58381C0871250001E46B /* EVADropDownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BB58311C0871250001E46B /* EVADropDownMenu.m */; };
+		14BB58391C0871250001E46B /* EVANavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BB58331C0871250001E46B /* EVANavigationController.m */; };
+		14BB583A1C0871250001E46B /* EVASearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BB58351C0871250001E46B /* EVASearchBar.m */; };
+		14BB583B1C0871250001E46B /* EVATabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BB58371C0871250001E46B /* EVATabBar.m */; };
+		14BB58421C0871310001E46B /* MBProgressHUD+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BB583E1C0871310001E46B /* MBProgressHUD+MJ.m */; };
+		14BB58431C0871310001E46B /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 14BB583F1C0871310001E46B /* MBProgressHUD.bundle */; };
+		14BB58441C0871310001E46B /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BB58411C0871310001E46B /* MBProgressHUD.m */; };
 		14CF92371BD354D000CF5E39 /* UIView+CGRect.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CF92361BD354D000CF5E39 /* UIView+CGRect.m */; };
-		14CF923B1BD364DB00CF5E39 /* EVANavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CF923A1BD364DB00CF5E39 /* EVANavigationController.m */; };
 		14CF924E1BD3730700CF5E39 /* TableViewController_3.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CF92461BD3730700CF5E39 /* TableViewController_3.m */; };
 		14CF924F1BD3730700CF5E39 /* TableViewController_3.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14CF92471BD3730700CF5E39 /* TableViewController_3.xib */; };
 		14CF92501BD3730700CF5E39 /* ViewController_1.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CF92491BD3730700CF5E39 /* ViewController_1.m */; };
@@ -55,10 +58,6 @@
 /* Begin PBXFileReference section */
 		00C14724385F04FE23BBEBE3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		06BA57E67674D50F00AE6D5C /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		142DBD1B1BD3DD27006A2E37 /* EVASearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVASearchBar.h; sourceTree = "<group>"; };
-		142DBD1C1BD3DD27006A2E37 /* EVASearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EVASearchBar.m; sourceTree = "<group>"; };
-		142DBD1E1BD3FABF006A2E37 /* EVADropDownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVADropDownMenu.h; sourceTree = "<group>"; };
-		142DBD1F1BD3FABF006A2E37 /* EVADropDownMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EVADropDownMenu.m; sourceTree = "<group>"; };
 		14AC31521BD399B60054C0C4 /* UIBarButtonItem+CustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+CustomView.h"; sourceTree = "<group>"; };
 		14AC31531BD399B60054C0C4 /* UIBarButtonItem+CustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+CustomView.m"; sourceTree = "<group>"; };
 		14B69BB21BD283CA006678EF /* 新浪微博-beat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "新浪微博-beat.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -81,14 +80,23 @@
 		14B69C0E1BD2B29B006678EF /* ProfileController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileController.m; sourceTree = "<group>"; };
 		14B907901BD50F1200DCA2D4 /* HomeDropDownMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeDropDownMenuController.h; sourceTree = "<group>"; };
 		14B907911BD50F1200DCA2D4 /* HomeDropDownMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeDropDownMenuController.m; sourceTree = "<group>"; };
-		14B907D21BD5490900DCA2D4 /* EVATabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVATabBar.h; sourceTree = "<group>"; };
-		14B907D31BD5490900DCA2D4 /* EVATabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EVATabBar.m; sourceTree = "<group>"; };
 		14BB58291C080A5C0001E46B /* OAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuthViewController.h; sourceTree = "<group>"; };
 		14BB582A1C080A5C0001E46B /* OAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAuthViewController.m; sourceTree = "<group>"; };
+		14BB58301C0871250001E46B /* EVADropDownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVADropDownMenu.h; sourceTree = "<group>"; };
+		14BB58311C0871250001E46B /* EVADropDownMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EVADropDownMenu.m; sourceTree = "<group>"; };
+		14BB58321C0871250001E46B /* EVANavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVANavigationController.h; sourceTree = "<group>"; };
+		14BB58331C0871250001E46B /* EVANavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EVANavigationController.m; sourceTree = "<group>"; };
+		14BB58341C0871250001E46B /* EVASearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVASearchBar.h; sourceTree = "<group>"; };
+		14BB58351C0871250001E46B /* EVASearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EVASearchBar.m; sourceTree = "<group>"; };
+		14BB58361C0871250001E46B /* EVATabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVATabBar.h; sourceTree = "<group>"; };
+		14BB58371C0871250001E46B /* EVATabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EVATabBar.m; sourceTree = "<group>"; };
+		14BB583D1C0871310001E46B /* MBProgressHUD+MJ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+MJ.h"; sourceTree = "<group>"; };
+		14BB583E1C0871310001E46B /* MBProgressHUD+MJ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+MJ.m"; sourceTree = "<group>"; };
+		14BB583F1C0871310001E46B /* MBProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MBProgressHUD.bundle; sourceTree = "<group>"; };
+		14BB58401C0871310001E46B /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		14BB58411C0871310001E46B /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		14CF92351BD354D000CF5E39 /* UIView+CGRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+CGRect.h"; sourceTree = "<group>"; };
 		14CF92361BD354D000CF5E39 /* UIView+CGRect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+CGRect.m"; sourceTree = "<group>"; };
-		14CF92391BD364DB00CF5E39 /* EVANavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVANavigationController.h; sourceTree = "<group>"; };
-		14CF923A1BD364DB00CF5E39 /* EVANavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EVANavigationController.m; sourceTree = "<group>"; };
 		14CF92451BD3730700CF5E39 /* TableViewController_3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController_3.h; sourceTree = "<group>"; };
 		14CF92461BD3730700CF5E39 /* TableViewController_3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController_3.m; sourceTree = "<group>"; };
 		14CF92471BD3730700CF5E39 /* TableViewController_3.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableViewController_3.xib; sourceTree = "<group>"; };
@@ -159,8 +167,9 @@
 		14B69BB41BD283CA006678EF /* 新浪微博-beat */ = {
 			isa = PBXGroup;
 			children = (
+				14BB582E1C0871250001E46B /* Libs */,
+				14BB582F1C0871250001E46B /* Tools */,
 				14CF92441BD3730700CF5E39 /* Test */,
-				14CF92381BD364B900CF5E39 /* Custom */,
 				14CF92341BD3544100CF5E39 /* Category */,
 				14B69BE81BD29C53006678EF /* Classes */,
 				14B69BB51BD283CA006678EF /* Supporting Files */,
@@ -361,6 +370,41 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		14BB582E1C0871250001E46B /* Libs */ = {
+			isa = PBXGroup;
+			children = (
+				14BB583C1C0871310001E46B /* MBProgressHUD */,
+			);
+			path = Libs;
+			sourceTree = "<group>";
+		};
+		14BB582F1C0871250001E46B /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				14BB58301C0871250001E46B /* EVADropDownMenu.h */,
+				14BB58311C0871250001E46B /* EVADropDownMenu.m */,
+				14BB58321C0871250001E46B /* EVANavigationController.h */,
+				14BB58331C0871250001E46B /* EVANavigationController.m */,
+				14BB58341C0871250001E46B /* EVASearchBar.h */,
+				14BB58351C0871250001E46B /* EVASearchBar.m */,
+				14BB58361C0871250001E46B /* EVATabBar.h */,
+				14BB58371C0871250001E46B /* EVATabBar.m */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		14BB583C1C0871310001E46B /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				14BB583D1C0871310001E46B /* MBProgressHUD+MJ.h */,
+				14BB583E1C0871310001E46B /* MBProgressHUD+MJ.m */,
+				14BB583F1C0871310001E46B /* MBProgressHUD.bundle */,
+				14BB58401C0871310001E46B /* MBProgressHUD.h */,
+				14BB58411C0871310001E46B /* MBProgressHUD.m */,
+			);
+			path = MBProgressHUD;
+			sourceTree = "<group>";
+		};
 		14CF92341BD3544100CF5E39 /* Category */ = {
 			isa = PBXGroup;
 			children = (
@@ -370,21 +414,6 @@
 				14AC31531BD399B60054C0C4 /* UIBarButtonItem+CustomView.m */,
 			);
 			path = Category;
-			sourceTree = "<group>";
-		};
-		14CF92381BD364B900CF5E39 /* Custom */ = {
-			isa = PBXGroup;
-			children = (
-				14CF92391BD364DB00CF5E39 /* EVANavigationController.h */,
-				14CF923A1BD364DB00CF5E39 /* EVANavigationController.m */,
-				142DBD1B1BD3DD27006A2E37 /* EVASearchBar.h */,
-				142DBD1C1BD3DD27006A2E37 /* EVASearchBar.m */,
-				142DBD1E1BD3FABF006A2E37 /* EVADropDownMenu.h */,
-				142DBD1F1BD3FABF006A2E37 /* EVADropDownMenu.m */,
-				14B907D21BD5490900DCA2D4 /* EVATabBar.h */,
-				14B907D31BD5490900DCA2D4 /* EVATabBar.m */,
-			);
-			path = Custom;
 			sourceTree = "<group>";
 		};
 		14CF92441BD3730700CF5E39 /* Test */ = {
@@ -560,6 +589,7 @@
 			files = (
 				14B69BC21BD283CA006678EF /* Assets.xcassets in Resources */,
 				14CF92531BD3730700CF5E39 /* ViewController_2.xib in Resources */,
+				14BB58431C0871310001E46B /* MBProgressHUD.bundle in Resources */,
 				14CF924F1BD3730700CF5E39 /* TableViewController_3.xib in Resources */,
 				14CF92511BD3730700CF5E39 /* ViewController_1.xib in Resources */,
 			);
@@ -634,22 +664,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				142DBD201BD3FABF006A2E37 /* EVADropDownMenu.m in Sources */,
 				14B69C091BD2B26C006678EF /* HomeController.m in Sources */,
-				142DBD1D1BD3DD27006A2E37 /* EVASearchBar.m in Sources */,
-				14B907D41BD5490900DCA2D4 /* EVATabBar.m in Sources */,
 				14B69C061BD2B257006678EF /* DiscoverController.m in Sources */,
 				14BB582B1C080A5C0001E46B /* OAuthViewController.m in Sources */,
 				14B69C0C1BD2B284006678EF /* MessageController.m in Sources */,
+				14BB583A1C0871250001E46B /* EVASearchBar.m in Sources */,
 				14D042DD1BD716F200F1ADAC /* main.m in Sources */,
 				14B907921BD50F1200DCA2D4 /* HomeDropDownMenuController.m in Sources */,
+				14BB583B1C0871250001E46B /* EVATabBar.m in Sources */,
 				14CF92371BD354D000CF5E39 /* UIView+CGRect.m in Sources */,
 				14CF92521BD3730700CF5E39 /* ViewController_2.m in Sources */,
 				14CF92501BD3730700CF5E39 /* ViewController_1.m in Sources */,
+				14BB58391C0871250001E46B /* EVANavigationController.m in Sources */,
 				14D042DE1BD716F200F1ADAC /* RootController.m in Sources */,
-				14CF923B1BD364DB00CF5E39 /* EVANavigationController.m in Sources */,
+				14BB58441C0871310001E46B /* MBProgressHUD.m in Sources */,
+				14BB58381C0871250001E46B /* EVADropDownMenu.m in Sources */,
 				14B69C0F1BD2B29B006678EF /* ProfileController.m in Sources */,
 				14D042E21BD717A100F1ADAC /* LaunchController.m in Sources */,
+				14BB58421C0871310001E46B /* MBProgressHUD+MJ.m in Sources */,
 				14AC31541BD399B60054C0C4 /* UIBarButtonItem+CustomView.m in Sources */,
 				14CF924E1BD3730700CF5E39 /* TableViewController_3.m in Sources */,
 				14D042DC1BD716F200F1ADAC /* AppDelegate.m in Sources */,
