@@ -19,9 +19,9 @@
 #import "UIBarButtonItem+CustomView.h"
 
 #ifdef DEBUG   //处于开发阶段    debug 模式
-#define EVALog(...) NSLog(__VA_ARGS__) 
+#define NSLog(...) NSLog(__VA_ARGS__)
 #else    //处于发布阶段   release 模式
-#define EVALog(...)
+#define NSLog(...)
 #endif
 
 /**

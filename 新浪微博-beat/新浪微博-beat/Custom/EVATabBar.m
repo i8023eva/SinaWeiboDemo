@@ -62,7 +62,7 @@
             }
         }
     }
-    EVALog(@"%@", self.subviews);
+//    EVALog(@"%@", self.subviews);
 }
 
 -(void) didClickPlusBtn:(UIButton *) sender{

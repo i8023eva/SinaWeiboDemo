@@ -7,6 +7,7 @@
 //
 
 #import "LaunchController.h"
+#import "RootController.h"
 
 #define kNewFeature 4
 
@@ -26,7 +27,7 @@
     scrollView.contentSize = CGSizeMake(scrollView.width * kNewFeature, 0);
     scrollView.bounces = NO;
     scrollView.pagingEnabled = YES;
-    scrollView.showsHorizontalScrollIndicator = NO;
+    scrollView.showsHorizontalScrollIndicator = NO;//不创建滚动条
     scrollView.delegate = self;
     [self.view addSubview:scrollView];
     
@@ -41,6 +42,11 @@
         imageView.x = i * scrollW;
         imageView.image = [UIImage imageNamed: [NSString stringWithFormat: @"new_feature_%d", i + 1]];
         [scrollView addSubview:imageView];
+        
+        // 如果是最后一个imageView，就往里面添加按钮   >> 不要判断 scrollView.subViews,  scrollView存在其他子控件
+        if (i == kNewFeature - 1) {
+            [self setupLastImageView:imageView];
+        }
     }
     
     UIPageControl *pageControl = [[UIPageControl alloc] init];
@@ -69,9 +75,69 @@
     self.pageControl.currentPage = (int)(page + 0.5);
 }
 
+-(void) setupLastImageView: (UIImageView *)imageView {
+    // 开启交互功能
+    imageView.userInteractionEnabled = YES;
+    
+    // 1.分享给大家（checkbox）
+    UIButton *shareBtn = [[UIButton alloc] init];
+    [shareBtn setImage:[UIImage imageNamed:@"new_feature_share_false"] forState:UIControlStateNormal];
+    [shareBtn setImage:[UIImage imageNamed:@"new_feature_share_true"] forState:UIControlStateSelected];
+    [shareBtn setTitle:@"分享给大家" forState:UIControlStateNormal];
+    [shareBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    shareBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+    shareBtn.width = 200;
+    shareBtn.height = 30;
+    shareBtn.centerX = imageView.width * 0.5;
+    shareBtn.centerY = imageView.height * 0.65;
+    [shareBtn addTarget:self action:@selector(shareClick:) forControlEvents:UIControlEventTouchUpInside];
+    [imageView addSubview:shareBtn];
+    
+    shareBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10);
+    
+//    shareBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0);
+    
+    // 2.开始微博
+    UIButton *startBtn = [[UIButton alloc] init];
+    [startBtn setBackgroundImage:[UIImage imageNamed:@"new_feature_finish_button"] forState:UIControlStateNormal];
+    [startBtn setBackgroundImage:[UIImage imageNamed:@"new_feature_finish_button_highlighted"] forState:UIControlStateHighlighted];
+    startBtn.size = startBtn.currentBackgroundImage.size;
+    startBtn.centerX = shareBtn.centerX;
+    startBtn.centerY = imageView.height * 0.75;
+    [startBtn setTitle:@"开始微博" forState:UIControlStateNormal];
+    [startBtn addTarget:self action:@selector(startClick) forControlEvents:UIControlEventTouchUpInside];
+    [imageView addSubview:startBtn];
+}
+
+- (void)shareClick:(UIButton *)shareBtn {
+    // 状态取反
+    shareBtn.selected = !shareBtn.isSelected;
+}
+
+- (void)startClick
+{
+    // 切换到HWTabBarController
+    /*
+     切换控制器的手段
+     1.push：依赖于UINavigationController，控制器的切换是可逆的，比如A切换到B，B又可以回到A
+     2.modal：控制器的切换是可逆的，比如A切换到B，B又可以回到A
+     3.切换window的rootViewController
+     */
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    window.rootViewController = [[RootController alloc] init];
+    
+    // modal方式，不建议采取：新特性控制器不会销毁
+    //    HWTabBarViewController *main = [[HWTabBarViewController alloc] init];
+    //    [self presentViewController:main animated:YES completion:nil];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)dealloc {
+    NSLog(@"dealloc ---%s ---%d", __func__, __LINE__);
 }
 
 /*
