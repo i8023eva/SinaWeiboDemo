@@ -11,6 +11,8 @@
 #import "RootController.h"
 #import "LaunchController.h"
 #import "MBProgressHUD+MJ.h"
+#import "AccountInfo.h"
+#import "EVAAccountTool.h"
 
 @interface OAuthViewController ()<UIWebViewDelegate>
 
@@ -43,6 +45,23 @@
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [webView loadRequest:request];
 
+}
+
+#pragma mark - UIWebViewDelegate
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    [MBProgressHUD hideHUD];
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView
+{
+    [MBProgressHUD showMessage:@"正在加载..."];
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    [MBProgressHUD hideHUD];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
@@ -118,19 +137,14 @@
     params[@"code"] = code;
     
     // 3.发送请求
-    [mgr POST:@"https://api.weibo.com/oauth2/access_token" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [mgr POST:@"https://api.weibo.com/oauth2/access_token" parameters:params success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
         [MBProgressHUD hideHUD];
         
-        // 沙盒路径
-        NSString *doc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-        NSString *path = [doc stringByAppendingPathComponent:@"account.archive"];
+        AccountInfo *account = [AccountInfo accountWithDict:responseObject];
         
-        // 将返回的账号字典数据 --> 模型，存进沙盒
-        HWAccount *account = [HWAccount accountWithDict:responseObject];
-        // 自定义对象的存储必须用NSKeyedArchiver，不再有什么writeToFile方法
-        [NSKeyedArchiver archiveRootObject:account toFile:path];
+        [EVAAccountTool saveAccount:account];
         
-        // 切换窗口的根控制器
+        
         NSString *key = @"CFBundleVersion";
         // 上一次的使用版本（存储在沙盒中的版本号）
         NSString *lastVersion = [[NSUserDefaults standardUserDefaults] objectForKey:key];
@@ -138,6 +152,7 @@
         NSString *currentVersion = [NSBundle mainBundle].infoDictionary[key];
         
         UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        
         if ([currentVersion isEqualToString:lastVersion]) { // 版本号相同：这次打开和上次打开的是同一个版本
             window.rootViewController = [[RootController alloc] init];
         } else { // 这次打开的版本和上一次不一样，显示新特性
@@ -167,7 +182,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 /*
 #pragma mark - Navigation
 

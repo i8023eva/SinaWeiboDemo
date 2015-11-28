@@ -10,6 +10,8 @@
 #import "RootController.h"
 #import "LaunchController.h"
 #import "OAuthViewController.h"
+#import "AccountInfo.h"
+#import "EVAAccountTool.h"
 
 @interface AppDelegate ()
 
@@ -21,23 +23,42 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    
 
+    AccountInfo *account = [EVAAccountTool account];
     
-    // 2.设置根控制器
-    NSString *key = @"CFBundleVersion";
-    // 上一次的使用版本（存储在沙盒中的版本号）
-    NSString *lastVersion = [[NSUserDefaults standardUserDefaults] objectForKey:key];
-    // 当前软件的版本号（从Info.plist中获得）
-    NSString *currentVersion = [NSBundle mainBundle].infoDictionary[key];
     
-    if ([currentVersion isEqualToString:lastVersion]) { // 版本号相同：这次打开和上次打开的是同一个版本
-        self.window.rootViewController = [[OAuthViewController alloc] init];
-    } else { // 这次打开的版本和上一次不一样，显示新特性
-        self.window.rootViewController = [[LaunchController alloc] init];
+    /**
+     *  token 可能过期
+     */
+    
+    /**
+     *  检测本地是否存储用户信息
+     */
+    if (account) {
         
-        // 将当前的版本号存进沙盒
-        [[NSUserDefaults standardUserDefaults] setObject:currentVersion forKey:key];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        // 2.设置根控制器
+        NSString *key = @"CFBundleVersion";
+        // 上一次的使用版本（存储在沙盒中的版本号）
+        NSString *lastVersion = [[NSUserDefaults standardUserDefaults] objectForKey:key];
+        // 当前软件的版本号（从Info.plist中获得）
+        NSString *currentVersion = [NSBundle mainBundle].infoDictionary[key];
+        
+        /**
+         *  检测版本号
+         */
+        if ([currentVersion isEqualToString:lastVersion]) { // 版本号相同：这次打开和上次打开的是同一个版本
+            self.window.rootViewController = [[RootController alloc] init];
+        } else { // 这次打开的版本和上一次不一样，显示新特性
+            self.window.rootViewController = [[LaunchController alloc] init];
+            
+            // 将当前的版本号存进沙盒
+            [[NSUserDefaults standardUserDefaults] setObject:currentVersion forKey:key];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+    }else {
+        self.window.rootViewController = [[OAuthViewController alloc] init];
     }
     
     [self.window makeKeyAndVisible];
@@ -48,35 +69,35 @@
 #warning 这种方式还是太冗杂, applicationDelegate 只需要创建窗口和设置根视图, 根视图有多少子控制器不需要知道
 
 /*
-- (void)addChildVc:(UIViewController *)childVc title:(NSString *)title image:(NSString *)image selectedImage:(NSString *)selectedImage{
-
-    childVc.tabBarItem.title = title;
-    childVc.tabBarItem.image = [UIImage imageNamed:image];
-    childVc.tabBarItem.selectedImage = [[UIImage imageNamed:selectedImage] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    [childVc.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName: rgbColor(255, 109, 0)} forState:UIControlStateSelected];
-    childVc.view.backgroundColor = randomColor;
-}
+ - (void)addChildVc:(UIViewController *)childVc title:(NSString *)title image:(NSString *)image selectedImage:(NSString *)selectedImage{
+ 
+ childVc.tabBarItem.title = title;
+ childVc.tabBarItem.image = [UIImage imageNamed:image];
+ childVc.tabBarItem.selectedImage = [[UIImage imageNamed:selectedImage] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+ [childVc.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName: rgbColor(255, 109, 0)} forState:UIControlStateSelected];
+ childVc.view.backgroundColor = randomColor;
+ }
  */
 /*
--(void) text2{
-    UITabBarController *tabBarCon = [[UITabBarController alloc]init];
-    
-    HomeController *home = [[HomeController alloc]init];
-    MessageController *message = [[MessageController alloc]init];
-    DiscoverController *discover = [[DiscoverController alloc]init];
-    ProfileController *profile = [[ProfileController alloc]init];
-    
-    [self addChildVc:home title:@"首页" image:@"tabbar_home" selectedImage:@"tabbar_home_selected"];
-    [self addChildVc:message title:@"消息" image:@"tabbar_message_center" selectedImage:@"tabbar_message_center_selected"];
-    [self addChildVc:discover title:@"发现" image:@"tabbar_discover" selectedImage:@"tabbar_discover_selected"];
-    [self addChildVc:profile title:@"我" image:@"tabbar_profile" selectedImage:@"tabbar_profile_selected"];
-    
-    [tabBarCon addChildViewController:home];
-    [tabBarCon addChildViewController:message];
-    [tabBarCon addChildViewController:discover];
-    [tabBarCon addChildViewController:profile];
-    //    tabBarCon.viewControllers = @[vc1, vc2, vc3, vc4];
-}
+ -(void) text2{
+ UITabBarController *tabBarCon = [[UITabBarController alloc]init];
+ 
+ HomeController *home = [[HomeController alloc]init];
+ MessageController *message = [[MessageController alloc]init];
+ DiscoverController *discover = [[DiscoverController alloc]init];
+ ProfileController *profile = [[ProfileController alloc]init];
+ 
+ [self addChildVc:home title:@"首页" image:@"tabbar_home" selectedImage:@"tabbar_home_selected"];
+ [self addChildVc:message title:@"消息" image:@"tabbar_message_center" selectedImage:@"tabbar_message_center_selected"];
+ [self addChildVc:discover title:@"发现" image:@"tabbar_discover" selectedImage:@"tabbar_discover_selected"];
+ [self addChildVc:profile title:@"我" image:@"tabbar_profile" selectedImage:@"tabbar_profile_selected"];
+ 
+ [tabBarCon addChildViewController:home];
+ [tabBarCon addChildViewController:message];
+ [tabBarCon addChildViewController:discover];
+ [tabBarCon addChildViewController:profile];
+ //    tabBarCon.viewControllers = @[vc1, vc2, vc3, vc4];
+ }
  */
 
 -(void) text{

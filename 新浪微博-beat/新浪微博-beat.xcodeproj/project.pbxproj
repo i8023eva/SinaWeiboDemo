@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1405E52B1C09AE58007FE79F /* AccountInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1405E52A1C09AE58007FE79F /* AccountInfo.m */; };
+		1405E52E1C09E709007FE79F /* EVAAccountTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1405E52D1C09E709007FE79F /* EVAAccountTool.m */; };
 		14AC31541BD399B60054C0C4 /* UIBarButtonItem+CustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14AC31531BD399B60054C0C4 /* UIBarButtonItem+CustomView.m */; };
 		14B69BC21BD283CA006678EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14B69BC11BD283CA006678EF /* Assets.xcassets */; };
 		14B69BD01BD283CA006678EF /* _____beatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B69BCF1BD283CA006678EF /* _____beatTests.m */; };
@@ -58,6 +60,10 @@
 /* Begin PBXFileReference section */
 		00C14724385F04FE23BBEBE3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		06BA57E67674D50F00AE6D5C /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		1405E5291C09AE58007FE79F /* AccountInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountInfo.h; sourceTree = "<group>"; };
+		1405E52A1C09AE58007FE79F /* AccountInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountInfo.m; sourceTree = "<group>"; };
+		1405E52C1C09E709007FE79F /* EVAAccountTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVAAccountTool.h; sourceTree = "<group>"; };
+		1405E52D1C09E709007FE79F /* EVAAccountTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EVAAccountTool.m; sourceTree = "<group>"; };
 		14AC31521BD399B60054C0C4 /* UIBarButtonItem+CustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+CustomView.h"; sourceTree = "<group>"; };
 		14AC31531BD399B60054C0C4 /* UIBarButtonItem+CustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+CustomView.m"; sourceTree = "<group>"; };
 		14B69BB21BD283CA006678EF /* 新浪微博-beat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "新浪微博-beat.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -142,6 +148,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		14887DFF1C09AA5700DB651F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1405E5291C09AE58007FE79F /* AccountInfo.h */,
+				1405E52A1C09AE58007FE79F /* AccountInfo.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		14B69BA91BD283CA006678EF = {
 			isa = PBXGroup;
 			children = (
@@ -356,6 +371,7 @@
 		14BB58271C0809280001E46B /* OAuth */ = {
 			isa = PBXGroup;
 			children = (
+				14887DFF1C09AA5700DB651F /* Model */,
 				14BB58281C0809400001E46B /* Controller */,
 			);
 			path = OAuth;
@@ -389,6 +405,8 @@
 				14BB58351C0871250001E46B /* EVASearchBar.m */,
 				14BB58361C0871250001E46B /* EVATabBar.h */,
 				14BB58371C0871250001E46B /* EVATabBar.m */,
+				1405E52C1C09E709007FE79F /* EVAAccountTool.h */,
+				1405E52D1C09E709007FE79F /* EVAAccountTool.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -664,6 +682,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1405E52E1C09E709007FE79F /* EVAAccountTool.m in Sources */,
 				14B69C091BD2B26C006678EF /* HomeController.m in Sources */,
 				14B69C061BD2B257006678EF /* DiscoverController.m in Sources */,
 				14BB582B1C080A5C0001E46B /* OAuthViewController.m in Sources */,
@@ -673,6 +692,7 @@
 				14B907921BD50F1200DCA2D4 /* HomeDropDownMenuController.m in Sources */,
 				14BB583B1C0871250001E46B /* EVATabBar.m in Sources */,
 				14CF92371BD354D000CF5E39 /* UIView+CGRect.m in Sources */,
+				1405E52B1C09AE58007FE79F /* AccountInfo.m in Sources */,
 				14CF92521BD3730700CF5E39 /* ViewController_2.m in Sources */,
 				14CF92501BD3730700CF5E39 /* ViewController_1.m in Sources */,
 				14BB58391C0871250001E46B /* EVANavigationController.m in Sources */,
