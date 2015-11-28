@@ -17,6 +17,7 @@
 #import <Foundation/Foundation.h>
 #import "UIView+CGRect.h"
 #import "UIBarButtonItem+CustomView.h"
+#import "UIWindow+Change.h"
 
 #ifdef DEBUG   //处于开发阶段    debug 模式
 #define NSLog(...) NSLog(__VA_ARGS__)
