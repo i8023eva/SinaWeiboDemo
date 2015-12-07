@@ -27,7 +27,6 @@
 
     AccountInfo *account = [EVAAccountTool account];
     
-    
     /**
      *  token 可能过期
      */

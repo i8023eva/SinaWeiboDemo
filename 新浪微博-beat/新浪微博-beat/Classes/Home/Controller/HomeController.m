@@ -9,6 +9,9 @@
 #import "HomeController.h"
 #import "EVADropDownMenu.h"
 #import "HomeDropDownMenuController.h"
+#import "AFNetworking.h"
+#import "EVAAccountTool.h"
+#import "AccountInfo.h"
 
 @interface HomeController ()<EVADropDownMenuDelegate>
 
@@ -22,6 +25,13 @@
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
+    [self setNavigationItem];
+    
+    [self getUserInfo];
+    
+}
+
+-(void) setNavigationItem {
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem barButtonItemWithTarget:self Action:@selector(didClickForFriendSearch:) image:@"navigationbar_friendsearch" highlightedImage:@"navigationbar_friendsearch_highlighted"];
     
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem barButtonItemWithTarget:self Action:@selector(didClickForPop:) image:@"navigationbar_pop" highlightedImage:@"navigationbar_pop_highlighted"];
@@ -29,7 +39,7 @@
     UIButton *titleButton = [[UIButton alloc]init];//这种创建方式等同于 style: Custom
     
     titleButton.size = CGSizeMake(150, 30);
-//    titleButton.backgroundColor = rgbColor(100, 100, 100);
+    //    titleButton.backgroundColor = rgbColor(100, 100, 100);
     
     [titleButton setTitle:@"首页" forState: UIControlStateNormal];
     [titleButton setTitleColor:rgbColor(0, 0, 0) forState:UIControlStateNormal];
@@ -41,19 +51,62 @@
      */
     titleButton.selected = NO;
     
-//    titleButton.imageView.backgroundColor = [UIColor redColor];
-//    titleButton.titleLabel.backgroundColor = [UIColor blueColor];
-    titleButton.imageEdgeInsets = UIEdgeInsetsMake(0, 80, 0, 0);//实现图片在右边
-    titleButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 30);
+    //    titleButton.imageView.backgroundColor = [UIColor redColor];
+    //    titleButton.titleLabel.backgroundColor = [UIColor blueColor];
+    titleButton.imageEdgeInsets = UIEdgeInsetsMake(0, 80, 0, 0);//实现图片在右边    这个方法支持的是像素, 而 frame 都是点
+    titleButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 30);///和所在 btn 的宽度有很大关系
+    /**
+     *   CGImageCreateWithImageInRect(CGImageRef  _Nullable image, CGRect rect)
+     
+     *  @param CGRect 这个方法中的 rect 也是像素值
+     */
+    
     /**  >>> 备用方法    自定义 Button
      *  - (CGRect)titleRectForContentRect:(CGRect)contentRect;
      *  - (CGRect)imageRectForContentRect:(CGRect)contentRect;
      */
     [titleButton addTarget:self action:@selector(didClickForTitle:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.titleView = titleButton;
-    
-    
 }
+
+-(void) getUserInfo {
+    /**
+     *  https://api.weibo.com/2/users/show.json     根据用户ID获取用户信息
+     
+     > access_token	false	string	采用OAuth授权方式为必填参数，其他授权方式不需要此参数，OAuth授权后获得。
+     > uid	false	int64	需要查询的用户ID。
+     
+     ----参数uid与screen_name二者必选其一，且只能选其一；
+     ----接口升级后，对未授权本应用的uid，将无法获取其个人简介、认证原因、粉丝数、关注数、微博数及最近一条微博内容。
+     */
+    
+    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
+    
+    // AFN的AFJSONResponseSerializer默认不接受text/plain这种类型     acceptableContentTypes
+    //"Request failed: unacceptable content-type: text/plain"
+    
+    AccountInfo *info = [EVAAccountTool account];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"access_token"] = info.access_token;
+    params[@"uid"] = info.uid;
+    
+    // 3.发送请求
+    [mgr GET:@"https://api.weibo.com/2/users/show.json" parameters:params success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
+        
+        UIButton *titleBtn = (UIButton *)self.navigationItem.titleView;
+        
+        NSString *name = responseObject[@"name"];
+        [titleBtn setTitle:name forState:UIControlStateNormal];
+        
+        
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"请求失败-%@", error);
+    }];
+
+}
+
 
 -(void) didClickForTitle: (UIButton *)sender{
     

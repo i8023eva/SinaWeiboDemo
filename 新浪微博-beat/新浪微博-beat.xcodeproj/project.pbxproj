@@ -10,6 +10,7 @@
 		1405E52B1C09AE58007FE79F /* AccountInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1405E52A1C09AE58007FE79F /* AccountInfo.m */; };
 		1405E52E1C09E709007FE79F /* EVAAccountTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1405E52D1C09E709007FE79F /* EVAAccountTool.m */; };
 		1405E5311C09F854007FE79F /* UIWindow+Change.m in Sources */ = {isa = PBXBuildFile; fileRef = 1405E5301C09F854007FE79F /* UIWindow+Change.m */; };
+		146D521D1C15A84200DBF960 /* NSArray+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 146D521C1C15A84200DBF960 /* NSArray+Log.m */; };
 		14AC31541BD399B60054C0C4 /* UIBarButtonItem+CustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14AC31531BD399B60054C0C4 /* UIBarButtonItem+CustomView.m */; };
 		14B69BC21BD283CA006678EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14B69BC11BD283CA006678EF /* Assets.xcassets */; };
 		14B69BD01BD283CA006678EF /* _____beatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B69BCF1BD283CA006678EF /* _____beatTests.m */; };
@@ -67,6 +68,8 @@
 		1405E52D1C09E709007FE79F /* EVAAccountTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EVAAccountTool.m; sourceTree = "<group>"; };
 		1405E52F1C09F854007FE79F /* UIWindow+Change.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWindow+Change.h"; sourceTree = "<group>"; };
 		1405E5301C09F854007FE79F /* UIWindow+Change.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWindow+Change.m"; sourceTree = "<group>"; };
+		146D521B1C15A84200DBF960 /* NSArray+Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Log.h"; sourceTree = "<group>"; };
+		146D521C1C15A84200DBF960 /* NSArray+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Log.m"; sourceTree = "<group>"; };
 		14AC31521BD399B60054C0C4 /* UIBarButtonItem+CustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+CustomView.h"; sourceTree = "<group>"; };
 		14AC31531BD399B60054C0C4 /* UIBarButtonItem+CustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+CustomView.m"; sourceTree = "<group>"; };
 		14B69BB21BD283CA006678EF /* 新浪微博-beat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "新浪微博-beat.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -429,6 +432,8 @@
 		14CF92341BD3544100CF5E39 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				146D521B1C15A84200DBF960 /* NSArray+Log.h */,
+				146D521C1C15A84200DBF960 /* NSArray+Log.m */,
 				14CF92351BD354D000CF5E39 /* UIView+CGRect.h */,
 				14CF92361BD354D000CF5E39 /* UIView+CGRect.m */,
 				14AC31521BD399B60054C0C4 /* UIBarButtonItem+CustomView.h */,
@@ -707,6 +712,7 @@
 				14B69C0F1BD2B29B006678EF /* ProfileController.m in Sources */,
 				14D042E21BD717A100F1ADAC /* LaunchController.m in Sources */,
 				14BB58421C0871310001E46B /* MBProgressHUD+MJ.m in Sources */,
+				146D521D1C15A84200DBF960 /* NSArray+Log.m in Sources */,
 				14AC31541BD399B60054C0C4 /* UIBarButtonItem+CustomView.m in Sources */,
 				14CF924E1BD3730700CF5E39 /* TableViewController_3.m in Sources */,
 				14D042DC1BD716F200F1ADAC /* AppDelegate.m in Sources */,
