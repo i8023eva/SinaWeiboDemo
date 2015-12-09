@@ -12,6 +12,7 @@
 #import "AFNetworking.h"
 #import "EVAAccountTool.h"
 #import "AccountInfo.h"
+#import "EVATitleButton.h"
 
 @interface HomeController ()<EVADropDownMenuDelegate>
 
@@ -36,31 +37,23 @@
     
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem barButtonItemWithTarget:self Action:@selector(didClickForPop:) image:@"navigationbar_pop" highlightedImage:@"navigationbar_pop_highlighted"];
     
-    UIButton *titleButton = [[UIButton alloc]init];//这种创建方式等同于 style: Custom
+    EVATitleButton *titleButton = [[EVATitleButton alloc]init];//这种创建方式等同于 style: Custom
     
-    titleButton.size = CGSizeMake(150, 30);
-    //    titleButton.backgroundColor = rgbColor(100, 100, 100);
-    
-    [titleButton setTitle:@"首页" forState: UIControlStateNormal];
-    [titleButton setTitleColor:rgbColor(0, 0, 0) forState:UIControlStateNormal];
-    titleButton.titleLabel.font = [UIFont boldSystemFontOfSize:17];//粗体
-    [titleButton setImage:[UIImage imageNamed:@"navigationbar_arrow_down"] forState:UIControlStateNormal];
-    [titleButton setImage:[UIImage imageNamed:@"navigationbar_arrow_up"] forState:UIControlStateSelected];
+    NSString *name = [EVAAccountTool account].name;
+    [titleButton setTitle:name? name: @"首页" forState: UIControlStateNormal];
+
     /**
      *  直接设置选中状态, 是否被选中来更换图片比填图片名要简单;
      */
-    titleButton.selected = NO;
+//    titleButton.selected = NO;
     
-    //    titleButton.imageView.backgroundColor = [UIColor redColor];
-    //    titleButton.titleLabel.backgroundColor = [UIColor blueColor];
-    titleButton.imageEdgeInsets = UIEdgeInsetsMake(0, 80, 0, 0);//实现图片在右边    这个方法支持的是像素, 而 frame 都是点
-    titleButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 30);///和所在 btn 的宽度有很大关系
+//    titleButton.imageEdgeInsets = UIEdgeInsetsMake(0, 80, 0, 0);//实现图片在右边    这个方法支持的是像素, 而 frame 都是点
+//    titleButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 30);///和所在 btn 的宽度有很大关系
     /**
      *   CGImageCreateWithImageInRect(CGImageRef  _Nullable image, CGRect rect)
      
      *  @param CGRect 这个方法中的 rect 也是像素值
      */
-    
     /**  >>> 备用方法    自定义 Button
      *  - (CGRect)titleRectForContentRect:(CGRect)contentRect;
      *  - (CGRect)imageRectForContentRect:(CGRect)contentRect;
@@ -98,9 +91,6 @@
         NSString *name = responseObject[@"name"];
         [titleBtn setTitle:name forState:UIControlStateNormal];
         
-        
-        
-        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"请求失败-%@", error);
     }];
@@ -134,10 +124,10 @@
 }
 -(void)dropDownMenuDidShow:(EVADropDownMenu *)dropDownMenu{
     /**
-     *  显示时, 改变图片朝向
+     *  显示时, 改变图片朝向/
      */
     UIButton *btn = (UIButton *)self.navigationItem.titleView;
-//    [btn setImage:[UIImage imageNamed:@"navigationbar_arrow_up"] forState:UIControlStateNormal];
+//    [btn setImage:[UIImage imageNamed:@" "] forState:UIControlStateNormal];
     btn.selected = YES;
 }
 

@@ -15,8 +15,8 @@
 
 + (void)saveAccount:(AccountInfo *)account
 {
-    // 获得账号存储的时间（accessToken的产生时间）记录第一次返回时的时间, 不能改变
-    account.created_time = [NSDate date];
+    // 获得账号存储的时间（accessToken的产生时间）记录第一次返回时的时间, 不能改变, 否则不会过期, 而这个方法每次都会调用
+//    account.created_time = [NSDate date];
     
     // 自定义对象的存储必须用NSKeyedArchiver，不再有什么writeToFile方法
     [NSKeyedArchiver archiveRootObject:account toFile:kFilePath];

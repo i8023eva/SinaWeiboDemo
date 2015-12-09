@@ -11,6 +11,8 @@
 		1405E52E1C09E709007FE79F /* EVAAccountTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1405E52D1C09E709007FE79F /* EVAAccountTool.m */; };
 		1405E5311C09F854007FE79F /* UIWindow+Change.m in Sources */ = {isa = PBXBuildFile; fileRef = 1405E5301C09F854007FE79F /* UIWindow+Change.m */; };
 		146D521D1C15A84200DBF960 /* NSArray+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 146D521C1C15A84200DBF960 /* NSArray+Log.m */; };
+		146D52201C1688F300DBF960 /* HomeDropDownMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 146D521F1C1688F300DBF960 /* HomeDropDownMenuController.m */; };
+		146D52231C16891200DBF960 /* EVATitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 146D52221C16891200DBF960 /* EVATitleButton.m */; };
 		14AC31541BD399B60054C0C4 /* UIBarButtonItem+CustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14AC31531BD399B60054C0C4 /* UIBarButtonItem+CustomView.m */; };
 		14B69BC21BD283CA006678EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14B69BC11BD283CA006678EF /* Assets.xcassets */; };
 		14B69BD01BD283CA006678EF /* _____beatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B69BCF1BD283CA006678EF /* _____beatTests.m */; };
@@ -19,7 +21,6 @@
 		14B69C091BD2B26C006678EF /* HomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B69C081BD2B26C006678EF /* HomeController.m */; };
 		14B69C0C1BD2B284006678EF /* MessageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B69C0B1BD2B284006678EF /* MessageController.m */; };
 		14B69C0F1BD2B29B006678EF /* ProfileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B69C0E1BD2B29B006678EF /* ProfileController.m */; };
-		14B907921BD50F1200DCA2D4 /* HomeDropDownMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B907911BD50F1200DCA2D4 /* HomeDropDownMenuController.m */; };
 		14BB582B1C080A5C0001E46B /* OAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BB582A1C080A5C0001E46B /* OAuthViewController.m */; };
 		14BB58381C0871250001E46B /* EVADropDownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BB58311C0871250001E46B /* EVADropDownMenu.m */; };
 		14BB58391C0871250001E46B /* EVANavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BB58331C0871250001E46B /* EVANavigationController.m */; };
@@ -70,6 +71,10 @@
 		1405E5301C09F854007FE79F /* UIWindow+Change.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWindow+Change.m"; sourceTree = "<group>"; };
 		146D521B1C15A84200DBF960 /* NSArray+Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Log.h"; sourceTree = "<group>"; };
 		146D521C1C15A84200DBF960 /* NSArray+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Log.m"; sourceTree = "<group>"; };
+		146D521E1C1688F300DBF960 /* HomeDropDownMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeDropDownMenuController.h; sourceTree = "<group>"; };
+		146D521F1C1688F300DBF960 /* HomeDropDownMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeDropDownMenuController.m; sourceTree = "<group>"; };
+		146D52211C16891200DBF960 /* EVATitleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVATitleButton.h; sourceTree = "<group>"; };
+		146D52221C16891200DBF960 /* EVATitleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EVATitleButton.m; sourceTree = "<group>"; };
 		14AC31521BD399B60054C0C4 /* UIBarButtonItem+CustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+CustomView.h"; sourceTree = "<group>"; };
 		14AC31531BD399B60054C0C4 /* UIBarButtonItem+CustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+CustomView.m"; sourceTree = "<group>"; };
 		14B69BB21BD283CA006678EF /* 新浪微博-beat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "新浪微博-beat.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -90,8 +95,6 @@
 		14B69C0B1BD2B284006678EF /* MessageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageController.m; sourceTree = "<group>"; };
 		14B69C0D1BD2B29B006678EF /* ProfileController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileController.h; sourceTree = "<group>"; };
 		14B69C0E1BD2B29B006678EF /* ProfileController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileController.m; sourceTree = "<group>"; };
-		14B907901BD50F1200DCA2D4 /* HomeDropDownMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeDropDownMenuController.h; sourceTree = "<group>"; };
-		14B907911BD50F1200DCA2D4 /* HomeDropDownMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeDropDownMenuController.m; sourceTree = "<group>"; };
 		14BB58291C080A5C0001E46B /* OAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuthViewController.h; sourceTree = "<group>"; };
 		14BB582A1C080A5C0001E46B /* OAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAuthViewController.m; sourceTree = "<group>"; };
 		14BB58301C0871250001E46B /* EVADropDownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVADropDownMenu.h; sourceTree = "<group>"; };
@@ -288,8 +291,6 @@
 			children = (
 				14B69C071BD2B26C006678EF /* HomeController.h */,
 				14B69C081BD2B26C006678EF /* HomeController.m */,
-				14B907901BD50F1200DCA2D4 /* HomeDropDownMenuController.h */,
-				14B907911BD50F1200DCA2D4 /* HomeDropDownMenuController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -304,6 +305,10 @@
 		14B69BFB1BD2B20A006678EF /* View */ = {
 			isa = PBXGroup;
 			children = (
+				146D521E1C1688F300DBF960 /* HomeDropDownMenuController.h */,
+				146D521F1C1688F300DBF960 /* HomeDropDownMenuController.m */,
+				146D52211C16891200DBF960 /* EVATitleButton.h */,
+				146D52221C16891200DBF960 /* EVATitleButton.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -699,7 +704,6 @@
 				14B69C0C1BD2B284006678EF /* MessageController.m in Sources */,
 				14BB583A1C0871250001E46B /* EVASearchBar.m in Sources */,
 				14D042DD1BD716F200F1ADAC /* main.m in Sources */,
-				14B907921BD50F1200DCA2D4 /* HomeDropDownMenuController.m in Sources */,
 				14BB583B1C0871250001E46B /* EVATabBar.m in Sources */,
 				14CF92371BD354D000CF5E39 /* UIView+CGRect.m in Sources */,
 				1405E52B1C09AE58007FE79F /* AccountInfo.m in Sources */,
@@ -713,6 +717,8 @@
 				14D042E21BD717A100F1ADAC /* LaunchController.m in Sources */,
 				14BB58421C0871310001E46B /* MBProgressHUD+MJ.m in Sources */,
 				146D521D1C15A84200DBF960 /* NSArray+Log.m in Sources */,
+				146D52201C1688F300DBF960 /* HomeDropDownMenuController.m in Sources */,
+				146D52231C16891200DBF960 /* EVATitleButton.m in Sources */,
 				14AC31541BD399B60054C0C4 /* UIBarButtonItem+CustomView.m in Sources */,
 				14CF924E1BD3730700CF5E39 /* TableViewController_3.m in Sources */,
 				14D042DC1BD716F200F1ADAC /* AppDelegate.m in Sources */,
