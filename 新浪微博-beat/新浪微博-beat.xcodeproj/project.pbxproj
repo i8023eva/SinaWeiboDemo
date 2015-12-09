@@ -13,6 +13,8 @@
 		146D521D1C15A84200DBF960 /* NSArray+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 146D521C1C15A84200DBF960 /* NSArray+Log.m */; };
 		146D52201C1688F300DBF960 /* HomeDropDownMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 146D521F1C1688F300DBF960 /* HomeDropDownMenuController.m */; };
 		146D52231C16891200DBF960 /* EVATitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 146D52221C16891200DBF960 /* EVATitleButton.m */; };
+		1472282B1C18832200BF96DB /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 1472282A1C18832200BF96DB /* User.m */; };
+		1472282E1C1883C000BF96DB /* Status.m in Sources */ = {isa = PBXBuildFile; fileRef = 1472282D1C1883C000BF96DB /* Status.m */; };
 		14AC31541BD399B60054C0C4 /* UIBarButtonItem+CustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14AC31531BD399B60054C0C4 /* UIBarButtonItem+CustomView.m */; };
 		14B69BC21BD283CA006678EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14B69BC11BD283CA006678EF /* Assets.xcassets */; };
 		14B69BD01BD283CA006678EF /* _____beatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B69BCF1BD283CA006678EF /* _____beatTests.m */; };
@@ -75,6 +77,10 @@
 		146D521F1C1688F300DBF960 /* HomeDropDownMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeDropDownMenuController.m; sourceTree = "<group>"; };
 		146D52211C16891200DBF960 /* EVATitleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVATitleButton.h; sourceTree = "<group>"; };
 		146D52221C16891200DBF960 /* EVATitleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EVATitleButton.m; sourceTree = "<group>"; };
+		147228291C18832200BF96DB /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		1472282A1C18832200BF96DB /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		1472282C1C1883C000BF96DB /* Status.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Status.h; sourceTree = "<group>"; };
+		1472282D1C1883C000BF96DB /* Status.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Status.m; sourceTree = "<group>"; };
 		14AC31521BD399B60054C0C4 /* UIBarButtonItem+CustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+CustomView.h"; sourceTree = "<group>"; };
 		14AC31531BD399B60054C0C4 /* UIBarButtonItem+CustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+CustomView.m"; sourceTree = "<group>"; };
 		14B69BB21BD283CA006678EF /* 新浪微博-beat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "新浪微博-beat.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -298,6 +304,10 @@
 		14B69BFA1BD2B20A006678EF /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				147228291C18832200BF96DB /* User.h */,
+				1472282A1C18832200BF96DB /* User.m */,
+				1472282C1C1883C000BF96DB /* Status.h */,
+				1472282D1C1883C000BF96DB /* Status.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -699,6 +709,7 @@
 			files = (
 				1405E52E1C09E709007FE79F /* EVAAccountTool.m in Sources */,
 				14B69C091BD2B26C006678EF /* HomeController.m in Sources */,
+				1472282B1C18832200BF96DB /* User.m in Sources */,
 				14B69C061BD2B257006678EF /* DiscoverController.m in Sources */,
 				14BB582B1C080A5C0001E46B /* OAuthViewController.m in Sources */,
 				14B69C0C1BD2B284006678EF /* MessageController.m in Sources */,
@@ -723,6 +734,7 @@
 				14CF924E1BD3730700CF5E39 /* TableViewController_3.m in Sources */,
 				14D042DC1BD716F200F1ADAC /* AppDelegate.m in Sources */,
 				1405E5311C09F854007FE79F /* UIWindow+Change.m in Sources */,
+				1472282E1C1883C000BF96DB /* Status.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

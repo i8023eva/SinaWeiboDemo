@@ -13,12 +13,25 @@
 #import "EVAAccountTool.h"
 #import "AccountInfo.h"
 #import "EVATitleButton.h"
+#import "Status.h"
+#import "MJExtension.h"
 
 @interface HomeController ()<EVADropDownMenuDelegate>
-
+/**
+ *  微博数组（里面放的都是Status模型，一个HWStatus对象就代表一条微博）
+ */
+@property (nonatomic, strong) NSMutableArray *statuses;
 @end
 
 @implementation HomeController
+
+- (NSMutableArray *)statuses
+{
+    if (!_statuses) {
+        self.statuses = [NSMutableArray array];
+    }
+    return _statuses;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -88,8 +101,8 @@
         
         UIButton *titleBtn = (UIButton *)self.navigationItem.titleView;
         
-        NSString *name = responseObject[@"name"];
-        [titleBtn setTitle:name forState:UIControlStateNormal];
+        User *user = [User mj_objectWithKeyValues:responseObject];
+        [titleBtn setTitle:user.name forState:UIControlStateNormal];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"请求失败-%@", error);
@@ -122,6 +135,7 @@
 //    [btn setImage:[UIImage imageNamed:@"navigationbar_arrow_down"] forState:UIControlStateNormal];
     btn.selected = NO;
 }
+
 -(void)dropDownMenuDidShow:(EVADropDownMenu *)dropDownMenu{
     /**
      *  显示时, 改变图片朝向/
