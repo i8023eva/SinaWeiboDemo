@@ -33,6 +33,7 @@
     [self sizeToFit];
 }
 
+#pragma mark - 第二次加载时imageView.x 变化
 -(void)layoutSubviews {  //只想改位置
     [super layoutSubviews];
     

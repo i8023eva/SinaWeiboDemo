@@ -15,6 +15,7 @@
 #import "EVATitleButton.h"
 #import "Status.h"
 #import "MJExtension.h"
+#import "UIImageView+WebCache.h"
 
 @interface HomeController ()<EVADropDownMenuDelegate>
 /**
@@ -43,6 +44,7 @@
     
     [self getUserInfo];
     
+    [self setupRefresh];
 }
 
 -(void) setNavigationItem {
@@ -104,10 +106,73 @@
         User *user = [User mj_objectWithKeyValues:responseObject];
         [titleBtn setTitle:user.name forState:UIControlStateNormal];
         
+        // 存储昵称到沙盒中
+        info.name = user.name;
+        [EVAAccountTool saveAccount:info];
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"请求失败-%@", error);
     }];
 
+}
+
+- (void)setupRefresh
+{
+    UIRefreshControl *control = [[UIRefreshControl alloc] init];
+    [control addTarget:self action:@selector(refreshStateChange:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:control];
+}
+
+-(void) refreshStateChange:(UIRefreshControl *)sender {
+    
+    //https://api.weibo.com/2/statuses/friends_timeline.json  >>获取当前登录用户及其所关注（授权）用户的最新微博
+    
+    /**
+     >  access_token	false	string	采用OAuth授权方式为必填参数，其他授权方式不需要此参数，OAuth授权后获得。
+     
+     >  max_id	false	int64	若指定此参数，则返回ID小于或等于max_id的微博，默认为0。
+     >  count	false	int	单页返回的记录条数，最大不超过100，默认为20。
+     */
+    
+    // 1.请求管理者
+    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
+    
+    // 2.拼接请求参数
+    AccountInfo *account = [EVAAccountTool account];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"access_token"] = account.access_token;
+    
+    // 取出最前面的微博（最新的微博，ID最大的微博）
+    Status *firstStatus = [self.statuses firstObject];
+    
+    if (firstStatus) {   //>>>>>是否有数据
+        
+//        >  since_id	false	int64	若指定此参数，则返回ID比since_id大的微博（即比since_id时间晚的微博），默认为0。
+        params[@"since_id"] = firstStatus.idstr;
+    }
+    
+    // 3.发送请求
+    [mgr GET:@"https://api.weibo.com/2/statuses/friends_timeline.json" parameters:params success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
+        // 将 "微博字典"数组 转为 "微博模型"数组
+        NSArray *newStatuses = [Status mj_objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
+        
+        // 将最新的微博数据，添加到总数组的最前面
+        NSRange range = NSMakeRange(0, newStatuses.count);
+        NSIndexSet *set = [NSIndexSet indexSetWithIndexesInRange:range];
+        //
+        [self.statuses insertObjects:newStatuses atIndexes:set];
+        
+        // 刷新表格
+        [self.tableView reloadData];
+        
+        // 结束刷新刷新
+        [sender endRefreshing];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"请求失败-%@", error);
+        
+        // 结束刷新刷新
+        [sender endRefreshing];
+    }];
 }
 
 
@@ -197,15 +262,26 @@
 }
 
 #pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.statuses.count;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *ID = @"cell";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+    }
+    Status *status = self.statuses[indexPath.row];
+    User *user = status.user;
+    
+    UIImage *placeholderImage = [UIImage imageNamed:@"avatar_default_small"];
+    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:user.profile_image_url] placeholderImage:placeholderImage];
+    cell.textLabel.text = user.name;
+    cell.detailTextLabel.text = status.text;
+    
+    return cell;
 }
 
 
