@@ -16,6 +16,7 @@
 #import "Status.h"
 #import "MJExtension.h"
 #import "UIImageView+WebCache.h"
+#import "LoadMoreFooterView.h"
 
 @interface HomeController ()<EVADropDownMenuDelegate>
 /**
@@ -44,9 +45,12 @@
     
     [self getUserInfo];
     
-    [self setupRefresh];
+    [self setupHeadRefresh];
+    
+    [self setupFooterRefresh];
 }
 
+#pragma mark - 设置 NavigationBar
 -(void) setNavigationItem {
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem barButtonItemWithTarget:self Action:@selector(didClickForFriendSearch:) image:@"navigationbar_friendsearch" highlightedImage:@"navigationbar_friendsearch_highlighted"];
     
@@ -77,6 +81,7 @@
     self.navigationItem.titleView = titleButton;
 }
 
+#pragma mark - 获取用户信息
 -(void) getUserInfo {
     /**
      *  https://api.weibo.com/2/users/show.json     根据用户ID获取用户信息
@@ -111,16 +116,23 @@
         [EVAAccountTool saveAccount:info];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"请求失败-%@", error);
+        NSLog(@"userinfo请求失败-%@", error);
     }];
 
 }
 
-- (void)setupRefresh
+#pragma mark - 下拉刷新
+- (void) setupHeadRefresh
 {
     UIRefreshControl *control = [[UIRefreshControl alloc] init];
     [control addTarget:self action:@selector(refreshStateChange:) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:control];
+    
+    //马上进入刷新状态(仅仅是显示刷新状态，并不会触发UIControlEventValueChanged事件)
+    [control beginRefreshing];
+    
+    //马上加载数据
+    [self refreshStateChange:control];
 }
 
 -(void) refreshStateChange:(UIRefreshControl *)sender {
@@ -167,6 +179,10 @@
         
         // 结束刷新刷新
         [sender endRefreshing];
+        
+        // 显示最新微博的数量
+        [self showNewStatusCount:newStatuses.count];
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"请求失败-%@", error);
         
@@ -175,7 +191,123 @@
     }];
 }
 
+/**
+ *  显示最新微博数量
+ *
+ *  @param label 动画
+ */
+-(void) showNewStatusCount:(NSUInteger) count {
+    
+    UILabel *label = [[UILabel alloc]init];
+    label.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"timeline_new_status_background"]];
+    label.width = kWidth;
+    label.height = 44;
+    label.y = 20;
+    label.textColor = [UIColor whiteColor];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.font = [UIFont systemFontOfSize:20];
+    
+    if (count == 0) {
+        label.text = @"没有新的微博数据，稍后再试";
+    }else {
+        label.text = [NSString stringWithFormat:@"共有%lu条新的微博数据", count];
+    }
+    //导航栏下面, tableView 上面
+    [self.navigationController.view insertSubview:label belowSubview:self.navigationController.navigationBar];
+    
+    [UIView animateWithDuration:1.f animations:^{
+        
+        label.transform = CGAffineTransformMakeTranslation(0, label.height);
+    } completion:^(BOOL finished) {
+        
+        [UIView animateWithDuration:1.f delay:1.f options:UIViewAnimationOptionCurveEaseOut animations:^{
+            
+            label.transform = CGAffineTransformIdentity;
+        } completion:^(BOOL finished) {
+            
+            [label removeFromSuperview];
+        }];
+    }];
+    
+}
 
+#pragma mark - 上拉加载
+-(void) setupFooterRefresh {
+ 
+    LoadMoreFooterView *footer = [LoadMoreFooterView loadMoreFooterView];
+    footer.hidden = YES;
+    self.tableView.tableFooterView = footer;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    //    scrollView == self.tableView == self.view
+    // 如果tableView还没有数据，就直接返回
+    if (self.statuses.count == 0 || self.tableView.tableFooterView.isHidden == NO) return;
+    
+    CGFloat offsetY = scrollView.contentOffset.y;
+    
+    // 当最后一个cell完全显示在眼前时，contentOffset的y值
+    CGFloat judgeOffsetY = scrollView.contentSize.height + scrollView.contentInset.bottom - scrollView.height - self.tableView.tableFooterView.height;
+    if (offsetY >= judgeOffsetY) { // 最后一个cell完全进入视野范围内
+        // 显示footer
+        self.tableView.tableFooterView.hidden = NO;
+        
+        // 加载更多的微博数据
+        [self loadMoreStatus];
+    }
+    
+    /*
+     contentInset：除具体内容以外的边框尺寸
+     contentSize: 里面的具体内容（header、cell、footer），除掉contentInset以外的尺寸
+     contentOffset:
+     1.它可以用来判断scrollView滚动到什么位置
+     2.指scrollView的内容超出了scrollView顶部的距离（除掉contentInset以外的尺寸）
+     */
+}
+
+- (void)loadMoreStatus
+{
+    // 1.请求管理者
+    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
+    
+    // 2.拼接请求参数
+    AccountInfo *account = [EVAAccountTool account];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"access_token"] = account.access_token;
+    
+    // 取出最后面的微博（最新的微博，ID最大的微博）
+    Status *lastStatus = [self.statuses lastObject];
+    if (lastStatus) {
+        // 若指定此参数，则返回ID小于或等于max_id的微博，默认为0。
+        // id这种数据一般都是比较大的，一般转成整数的话，最好是long long类型
+        long long maxId = lastStatus.idstr.longLongValue - 1;
+        params[@"max_id"] = @(maxId);
+    }
+    
+    // 3.发送请求
+    [mgr GET:@"https://api.weibo.com/2/statuses/friends_timeline.json" parameters:params success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
+        // 将 "微博字典"数组 转为 "微博模型"数组
+        NSArray *newStatuses = [Status mj_objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
+        
+        // 将更多的微博数据，添加到总数组的最后面
+        [self.statuses addObjectsFromArray:newStatuses];
+        
+        // 刷新表格
+        [self.tableView reloadData];
+        
+        // 结束刷新(隐藏footer)
+        self.tableView.tableFooterView.hidden = YES;
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"请求失败-%@", error);
+        
+        // 结束刷新
+        self.tableView.tableFooterView.hidden = YES;
+    }];
+}
+
+
+#pragma mark - 标题按钮点击
 -(void) didClickForTitle: (UIButton *)sender{
     
     EVADropDownMenu *dropDownMenu = [EVADropDownMenu dropDownMenu];
@@ -188,7 +320,6 @@
     dropDownMenu.contentController = homeCon;
     
     [dropDownMenu showFromView:sender];
-
 }
 
 #pragma mark - EVADropDownMenu
@@ -213,7 +344,6 @@
 
 
 -(void) test{
-    
     /**
      *  如果图片某个方向上不规则, 那这个方向就不能拉伸
      */
@@ -255,12 +385,6 @@
 }
 
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 #pragma mark - Table view data source
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.statuses.count;
@@ -282,6 +406,12 @@
     cell.detailTextLabel.text = status.text;
     
     return cell;
+}
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 
