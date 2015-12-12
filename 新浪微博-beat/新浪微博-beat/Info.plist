@@ -26,15 +26,18 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>audio</string>
+	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
-    <key>NSAppTransportSecurity</key>
-    <dict>
-        <!--Connect to anything (this is probably BAD)-->
-        <key>NSAllowsArbitraryLoads</key>
-        <true/>
-    </dict>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 </dict>
 </plist>

@@ -48,6 +48,8 @@
     [self setupHeadRefresh];
     
     [self setupFooterRefresh];
+    
+    [self startUnReadTimer];
 }
 
 #pragma mark - 设置 NavigationBar
@@ -59,7 +61,7 @@
     EVATitleButton *titleButton = [[EVATitleButton alloc]init];//这种创建方式等同于 style: Custom
     
     NSString *name = [EVAAccountTool account].name;
-    [titleButton setTitle:name? name: @"首页" forState: UIControlStateNormal];
+    [titleButton setTitle:name ? name : @"首页" forState: UIControlStateNormal];
 
     /**
      *  直接设置选中状态, 是否被选中来更换图片比填图片名要简单;
@@ -116,7 +118,7 @@
         [EVAAccountTool saveAccount:info];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"userinfo请求失败-%@", error);
+        NSLog(@"getUserInfo---400 : %@", error);
     }];
 
 }
@@ -184,7 +186,7 @@
         [self showNewStatusCount:newStatuses.count];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"请求失败-%@", error);
+        NSLog(@"refreshStateChange---400 : %@", error);
         
         // 结束刷新刷新
         [sender endRefreshing];
@@ -197,6 +199,10 @@
  *  @param label 动画
  */
 -(void) showNewStatusCount:(NSUInteger) count {
+    
+    // 刷新成功(清空图标数字)
+    self.tabBarItem.badgeValue = nil;
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     
     UILabel *label = [[UILabel alloc]init];
     label.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"timeline_new_status_background"]];
@@ -299,10 +305,58 @@
         // 结束刷新(隐藏footer)
         self.tableView.tableFooterView.hidden = YES;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"请求失败-%@", error);
+        NSLog(@"loadMoreStatus---400 : %@", error);
         
         // 结束刷新
         self.tableView.tableFooterView.hidden = YES;
+    }];
+}
+
+#pragma mark - 开启未读消息计时器
+-(void) startUnReadTimer {
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:60.f target:self selector:@selector(getUnReadCount) userInfo:nil repeats:YES];
+    //防止主运行循环占用
+    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+}
+
+-(void) getUnReadCount {
+    NSLog(@"60");
+    
+    //https://rm.api.weibo.com/2/remind/unread_count.json  >>> 获取某个用户的各种消息未读数
+    
+    /**
+     > access_token	false	string	采用OAuth授权方式为必填参数，其他授权方式不需要此参数，OAuth授权后获得。
+     > uid	true	int64	需要获取消息未读数的用户UID，必须是当前登录用户。
+     */
+    /**
+     *  返回值字段       字段类型        字段说明
+            status              int         新微博未读数
+     */
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    AccountInfo *info = [EVAAccountTool account];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"access_token"] = info.access_token;
+    params[@"uid"] = info.uid;
+    
+    [manager GET:@"https://rm.api.weibo.com/2/remind/unread_count.json" parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+       
+        /**description 直接返回字符串形式    @10 -> @"10"
+         
+         *  [NSNumber description] -> (NSString *)
+         */
+        NSString *status = [responseObject[@"status"] description];
+        
+        if ([status isEqualToString:@"0"]) {
+            self.tabBarItem.badgeValue = nil;
+            [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+        } else {
+            self.tabBarItem.badgeValue = status;
+            [UIApplication sharedApplication].applicationIconBadgeNumber = status.intValue;  //>>> 需要设置后台监听
+        }
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        NSLog(@"getUnReadCount---400 : %@", error);
     }];
 }
 

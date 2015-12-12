@@ -37,9 +37,13 @@
 -(void)layoutSubviews {  //只想改位置
     [super layoutSubviews];
     
-    self.titleLabel.x = self.imageView.x;
+//    self.titleLabel.x = self.imageView.x;
     
-    self.imageView.x = CGRectGetMaxX(self.titleLabel.frame);
+#warning 修改位置变换问题
+    self.titleEdgeInsets = UIEdgeInsetsMake(0, -self.imageView.width, 0, self.imageView.width);
+    self.imageEdgeInsets = UIEdgeInsetsMake(0, self.titleLabel.width, 0, -self.titleLabel.width);
+    
+//    self.imageView.x = CGRectGetMaxX(self.titleLabel.frame);
 }
 
 //-(CGRect)titleRectForContentRect:(CGRect)contentRect {}    修改位置还有大小
