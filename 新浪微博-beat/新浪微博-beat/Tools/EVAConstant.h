@@ -13,10 +13,10 @@
 
 
 // 昵称字体
-#define kStatusCellNameFont [UIFont systemFontOfSize:15]
+#define kStatusCellNameFont [UIFont systemFontOfSize:17]
 // 时间字体
 #define kStatusCellTimeFont [UIFont systemFontOfSize:12]
 // 来源字体
 #define kStatusCellSourceFont kStatusCellTimeFont
 // 正文字体
-#define kStatusCellContentFont [UIFont systemFontOfSize:14]
+#define kStatusCellContentFont [UIFont systemFontOfSize:15]

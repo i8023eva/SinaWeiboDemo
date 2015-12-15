@@ -19,6 +19,7 @@
 #import "UIBarButtonItem+CustomView.h"
 #import "UIWindow+Change.h"
 #import "NSArray+Log.h"
+#import "NSString+UIFont.h"
 #import "EVAConstant.h"
 
 #ifdef DEBUG   //处于开发阶段    debug 模式

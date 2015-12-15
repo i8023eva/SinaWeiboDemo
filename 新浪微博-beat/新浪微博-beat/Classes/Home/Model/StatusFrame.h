@@ -7,9 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Status.h"
 
-
-@class Status;
 @interface StatusFrame : NSObject
 
 @property (nonatomic, strong) Status *status;

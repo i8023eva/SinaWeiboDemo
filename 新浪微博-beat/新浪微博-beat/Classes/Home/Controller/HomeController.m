@@ -13,26 +13,26 @@
 #import "EVAAccountTool.h"
 #import "AccountInfo.h"
 #import "EVATitleButton.h"
-#import "Status.h"
 #import "MJExtension.h"
 #import "UIImageView+WebCache.h"
 #import "LoadMoreFooterView.h"
+#import "EVAStatusCell.h"
 
 @interface HomeController ()<EVADropDownMenuDelegate>
 /**
  *  微博数组（里面放的都是Status模型，一个HWStatus对象就代表一条微博）    frame 中含有 Status
  */
-@property (nonatomic, strong) NSMutableArray *statuses;
+@property (nonatomic, strong) NSMutableArray *statusFrames;
 @end
 
 @implementation HomeController
 
-- (NSMutableArray *)statuses
+- (NSMutableArray *)statusFrames
 {
-    if (!_statuses) {
-        self.statuses = [NSMutableArray array];
+    if (!_statusFrames) {
+        self.statusFrames = [NSMutableArray array];
     }
-    return _statuses;
+    return _statusFrames;
 }
 
 - (void)viewDidLoad {
@@ -157,12 +157,12 @@
     params[@"access_token"] = account.access_token;
     
     // 取出最前面的微博（最新的微博，ID最大的微博）
-    Status *firstStatus = [self.statuses firstObject];
+    StatusFrame *firstStatus = [self.statusFrames firstObject];
     
     if (firstStatus) {   //>>>>>是否有数据
         
 //        >  since_id	false	int64	若指定此参数，则返回ID比since_id大的微博（即比since_id时间晚的微博），默认为0。
-        params[@"since_id"] = firstStatus.idstr;
+        params[@"since_id"] = firstStatus.status.idstr;
     }
     
     // 3.发送请求
@@ -173,11 +173,14 @@
         // 将 "微博字典"数组 转为 "微博模型"数组
         NSArray *newStatuses = [Status mj_objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
         
+        // 将 Status数组 转为 StatusFrame数组
+        NSArray *newFrames = [self stausFramesWithStatuses:newStatuses];
+        
         // 将最新的微博数据，添加到总数组的最前面
         NSRange range = NSMakeRange(0, newStatuses.count);
         NSIndexSet *set = [NSIndexSet indexSetWithIndexesInRange:range];
         //
-        [self.statuses insertObjects:newStatuses atIndexes:set];
+        [self.statusFrames insertObjects:newFrames atIndexes:set];
         
         // 刷新表格
         [self.tableView reloadData];
@@ -195,6 +198,7 @@
         [sender endRefreshing];
     }];
 }
+
 
 /**
  *  显示最新微博数量
@@ -252,7 +256,7 @@
 {
     //    scrollView == self.tableView == self.view
     // 如果tableView还没有数据，就直接返回
-    if (self.statuses.count == 0 || self.tableView.tableFooterView.isHidden == NO) return;
+    if (self.statusFrames.count == 0 || self.tableView.tableFooterView.isHidden == NO) return;
     
     CGFloat offsetY = scrollView.contentOffset.y;
     
@@ -286,11 +290,11 @@
     params[@"access_token"] = account.access_token;
     
     // 取出最后面的微博（最新的微博，ID最大的微博）
-    Status *lastStatus = [self.statuses lastObject];
+    StatusFrame *lastStatus = [self.statusFrames lastObject];
     if (lastStatus) {
         // 若指定此参数，则返回ID小于或等于max_id的微博，默认为0。
         // id这种数据一般都是比较大的，一般转成整数的话，最好是long long类型
-        long long maxId = lastStatus.idstr.longLongValue - 1;
+        long long maxId = lastStatus.status.idstr.longLongValue - 1;
         params[@"max_id"] = @(maxId);
     }
     
@@ -299,8 +303,11 @@
         // 将 "微博字典"数组 转为 "微博模型"数组
         NSArray *newStatuses = [Status mj_objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
         
+        // 将 Status数组 转为 StatusFrame数组
+        NSArray *newFrames = [self stausFramesWithStatuses:newStatuses];
+        
         // 将更多的微博数据，添加到总数组的最后面
-        [self.statuses addObjectsFromArray:newStatuses];
+        [self.statusFrames addObjectsFromArray:newFrames];
         
         // 刷新表格
         [self.tableView reloadData];
@@ -314,6 +321,22 @@
         self.tableView.tableFooterView.hidden = YES;
     }];
 }
+
+/**
+ *  将Status模型转为StatusFrame模型
+ */
+- (NSArray *)stausFramesWithStatuses:(NSArray *)statuses
+{
+    NSMutableArray *frames = [NSMutableArray array];
+    for (Status *status in statuses) {
+        StatusFrame *f = [[StatusFrame alloc] init];
+        f.status = status;
+        [frames addObject:f];
+    }
+    return frames;
+}
+
+
 
 #pragma mark - 开启未读消息计时器
 -(void) startUnReadTimer {
@@ -362,6 +385,8 @@
         NSLog(@"getUnReadCount---400 : %@", error);
     }];
 }
+
+
 
 
 #pragma mark - 标题按钮点击
@@ -444,25 +469,22 @@
 
 #pragma mark - Table view data source
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.statuses.count;
+    return self.statusFrames.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *ID = @"cell";
+
+    EVAStatusCell *cell = [EVAStatusCell cellWithTableView:tableView];
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
-    }
-    Status *status = self.statuses[indexPath.row];
-    User *user = status.user;
-    
-    UIImage *placeholderImage = [UIImage imageNamed:@"avatar_default_small"];
-    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:user.profile_image_url] placeholderImage:placeholderImage];
-    cell.textLabel.text = user.name;
-    cell.detailTextLabel.text = status.text;
+    cell.statusFrame = self.statusFrames[indexPath.row];
     
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    StatusFrame *frame = self.statusFrames[indexPath.row];
+    return frame.cellHeight;
 }
 
 

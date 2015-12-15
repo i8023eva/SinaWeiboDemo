@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StatusFrame.h"
 
-@class StatusFrame;
 @interface EVAStatusCell : UITableViewCell
 
 @property (nonatomic, strong) StatusFrame *statusFrame;
