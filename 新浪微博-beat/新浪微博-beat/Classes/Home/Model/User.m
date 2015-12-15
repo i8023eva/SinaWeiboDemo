@@ -10,4 +10,10 @@
 
 @implementation User
 
+-(void)setMbtype:(int)mbtype {
+    _mbtype = mbtype;
+    
+    self.vip = _mbtype > 2;
+}
+
 @end

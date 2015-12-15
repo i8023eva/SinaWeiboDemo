@@ -20,7 +20,7 @@
 
 @interface HomeController ()<EVADropDownMenuDelegate>
 /**
- *  微博数组（里面放的都是Status模型，一个HWStatus对象就代表一条微博）
+ *  微博数组（里面放的都是Status模型，一个HWStatus对象就代表一条微博）    frame 中含有 Status
  */
 @property (nonatomic, strong) NSMutableArray *statuses;
 @end
@@ -39,7 +39,7 @@
     [super viewDidLoad];
     
     // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+//     self.clearsSelectionOnViewWillAppear = NO;
     
     [self setNavigationItem];
     
@@ -167,6 +167,9 @@
     
     // 3.发送请求
     [mgr GET:@"https://api.weibo.com/2/statuses/friends_timeline.json" parameters:params success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
+        
+        NSLog(@"^^^^^^^^^^\n%@\n^^^^^^^^^^^^", responseObject);
+        
         // 将 "微博字典"数组 转为 "微博模型"数组
         NSArray *newStatuses = [Status mj_objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
         

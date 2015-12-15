@@ -20,6 +20,16 @@
     return self;
 }
 
+/**
+ *  重写setFrame:方法的目的：拦截设置按钮尺寸的过程
+ *  如果想在系统设置完控件的尺寸后，再做修改，而且要保证修改成功，一般都是在setFrame:中设置
+ */
+- (void)setFrame:(CGRect)frame
+{
+    frame.size.width += 5;    //在 super 前面设置
+    [super setFrame:frame];
+}
+
 -(void)setImage:(UIImage *)image forState:(UIControlState)state {
     [super setImage:image forState:state];
     
@@ -41,7 +51,7 @@
     
 #warning 修改位置变换问题
     self.titleEdgeInsets = UIEdgeInsetsMake(0, -self.imageView.width, 0, self.imageView.width);
-    self.imageEdgeInsets = UIEdgeInsetsMake(0, self.titleLabel.width, 0, -self.titleLabel.width);
+    self.imageEdgeInsets = UIEdgeInsetsMake(0, self.titleLabel.width + 5, 0, -self.titleLabel.width - 5);
     
 //    self.imageView.x = CGRectGetMaxX(self.titleLabel.frame);
 }
