@@ -129,8 +129,16 @@
     }
     
     /** 配图 */
-    self.photoView.frame = statusFrame.photoViewF;
-    self.photoView.backgroundColor = [UIColor redColor];
+    if (status.pic_urls.count) {
+        self.photoView.frame = statusFrame.photoViewF;
+#warning
+        Photos *photo = [status.pic_urls firstObject];
+        [self.photoView sd_setImageWithURL:[NSURL URLWithString:photo.thumbnail_pic] placeholderImage:[UIImage imageNamed:@"timeline_image_placeholder"]];
+        
+        self.photoView.hidden = NO;
+    } else {
+        self.photoView.hidden = YES;
+    }
     
     /** 昵称 */
     self.nameLabel.text = user.name;

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1402F2391C20F46F001345F8 /* Photos.m in Sources */ = {isa = PBXBuildFile; fileRef = 1402F2381C20F46F001345F8 /* Photos.m */; };
 		1405E52B1C09AE58007FE79F /* AccountInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1405E52A1C09AE58007FE79F /* AccountInfo.m */; };
 		1405E52E1C09E709007FE79F /* EVAAccountTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1405E52D1C09E709007FE79F /* EVAAccountTool.m */; };
 		1405E5311C09F854007FE79F /* UIWindow+Change.m in Sources */ = {isa = PBXBuildFile; fileRef = 1405E5301C09F854007FE79F /* UIWindow+Change.m */; };
@@ -70,6 +71,8 @@
 /* Begin PBXFileReference section */
 		00C14724385F04FE23BBEBE3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		06BA57E67674D50F00AE6D5C /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		1402F2371C20F46F001345F8 /* Photos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photos.h; sourceTree = "<group>"; };
+		1402F2381C20F46F001345F8 /* Photos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photos.m; sourceTree = "<group>"; };
 		1405E5291C09AE58007FE79F /* AccountInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountInfo.h; sourceTree = "<group>"; };
 		1405E52A1C09AE58007FE79F /* AccountInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountInfo.m; sourceTree = "<group>"; };
 		1405E52C1C09E709007FE79F /* EVAAccountTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVAAccountTool.h; sourceTree = "<group>"; };
@@ -321,6 +324,8 @@
 			children = (
 				147228291C18832200BF96DB /* User.h */,
 				1472282A1C18832200BF96DB /* User.m */,
+				1402F2371C20F46F001345F8 /* Photos.h */,
+				1402F2381C20F46F001345F8 /* Photos.m */,
 				1472282C1C1883C000BF96DB /* Status.h */,
 				1472282D1C1883C000BF96DB /* Status.m */,
 				144A43261C1C242E0009FE20 /* StatusFrame.h */,
@@ -764,6 +769,7 @@
 				14D042DC1BD716F200F1ADAC /* AppDelegate.m in Sources */,
 				1405E5311C09F854007FE79F /* UIWindow+Change.m in Sources */,
 				144A432B1C1C24650009FE20 /* EVAStatusCell.m in Sources */,
+				1402F2391C20F46F001345F8 /* Photos.m in Sources */,
 				1472282E1C1883C000BF96DB /* Status.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

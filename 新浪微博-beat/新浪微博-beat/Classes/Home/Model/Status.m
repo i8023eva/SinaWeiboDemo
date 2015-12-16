@@ -7,7 +7,12 @@
 //
 
 #import "Status.h"
+#import "MJExtension.h"
 
 @implementation Status
+
++ (NSDictionary *)mj_objectClassInArray {
+    return @{@"pic_urls" : [Photos class]};
+}
 
 @end

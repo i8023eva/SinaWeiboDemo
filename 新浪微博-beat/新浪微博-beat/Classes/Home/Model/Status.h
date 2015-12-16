@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "User.h"
+#import "Photos.h"
 
 
 @interface Status : NSObject
@@ -25,5 +26,8 @@
 
 /**	string	微博来源*/
 @property (nonatomic, copy) NSString *source;
+
+/** 微博配图地址。多图时返回多图链接。无配图返回“[]” */
+@property (nonatomic, strong) NSArray *pic_urls;
 
 @end
