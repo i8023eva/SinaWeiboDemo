@@ -60,8 +60,6 @@
         originalH = CGRectGetMaxY(self.contentLabelF) + 10;
     }
     
-    
-    
     /** 原创微博整体 */
     CGFloat originalX = 0;
     CGFloat originalY = 0;
@@ -69,7 +67,34 @@
     self.originalViewF = CGRectMake(originalX, originalY, originalW, originalH);
     
     
-    
-    self.cellHeight = CGRectGetMaxY(self.originalViewF);
+    if (status.retweeted_status) {
+        
+        Status *retweeted_status = status.retweeted_status;
+        User *retweeted_status_user = retweeted_status.user;
+        
+        NSString *retweetContent = [NSString stringWithFormat:@"@%@ : %@", retweeted_status_user.name, retweeted_status.text];
+        CGSize retweetContentSize = [retweetContent sizeOfLinesWithFont:kStatusCellRetweetContentFont maxW:maxW];
+        self.retweetContentLabelF = (CGRect){{10 , 10}, retweetContentSize};
+        
+        CGFloat retweetH = 0;
+        if (retweeted_status.pic_urls.count) { // 转发微博有配图
+            CGFloat retweetPhotoWH = 100;
+            CGFloat retweetPhotoX = 10;
+            CGFloat retweetPhotoY = CGRectGetMaxY(self.retweetContentLabelF) + 10;
+            self.retweetPhotoViewF = CGRectMake(retweetPhotoX, retweetPhotoY, retweetPhotoWH, retweetPhotoWH);
+            
+            retweetH = CGRectGetMaxY(self.retweetPhotoViewF) + 10;
+        } else { // 转发微博没有配图
+            retweetH = CGRectGetMaxY(self.retweetContentLabelF) + 10;
+        }
+        CGFloat retweetX = 0;
+        CGFloat retweetY = CGRectGetMaxY(self.originalViewF);
+        CGFloat retweetW = kWidth;
+        self.retweetViewF = CGRectMake(retweetX, retweetY, retweetW, retweetH);
+        
+        self.cellHeight = CGRectGetMaxY(self.retweetViewF);
+    } else {
+        self.cellHeight = CGRectGetMaxY(self.originalViewF);
+    }
 }
 @end

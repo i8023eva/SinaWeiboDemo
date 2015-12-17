@@ -20,3 +20,5 @@
 #define kStatusCellSourceFont kStatusCellTimeFont
 // 正文字体
 #define kStatusCellContentFont [UIFont systemFontOfSize:15]
+// 被转发微博的正文字体
+#define kStatusCellRetweetContentFont [UIFont systemFontOfSize:14]
